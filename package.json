@@ -1,0 +1,13 @@
+{
+  "name": "expensify-cards-be",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^2.3.0",
+    "cookie-parser": "~1.4.4",
+    "express": "5.0.0"
+  }
+}
