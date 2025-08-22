@@ -70,8 +70,8 @@ router.post("/register_biometrics", (req, res) => {
         return res.status(401).send(Logger.w("Validate code required"));
     }
 
-    if (validateCode && !STORAGE.publicKeys[USER_EMAIL]?.length) {
-        const isValidateCodeCorrect = validateCodes.at(-1) === validateCode;
+    if (validateCode && STORAGE.publicKeys[USER_EMAIL]?.length > 0) {
+        const isValidateCodeCorrect = !!validateCodes.at(-1) && validateCodes.at(-1) === validateCode;
 
         if (!isValidateCodeCorrect) {
             return res.status(401).send(Logger.w("Validate code invalid"));
@@ -113,7 +113,7 @@ router.post("/authorize_transaction", (req, res) => {
         return res.status(authorized ? 200 : 401).send(authorized);
     }
 
-    if (validateCode) {
+    if (validateCode && !!validateCodes.at(-1)) {
         Logger.m("Authorizing transaction", transactionID, "with validate code", validateCode);
 
         const isValidateCodeCorrect = validateCodes.at(-1) === validateCode;

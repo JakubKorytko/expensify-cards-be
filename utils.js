@@ -14,9 +14,23 @@ const STORAGE  = {
 const DISABLE_LOGGER = false;
 
 const Logger = {
-    e: (...args) => !DISABLE_LOGGER && console.error("[ERROR]", ...args, "\n") ? args : undefined,
-    w: (...args) => !DISABLE_LOGGER && console.warn("[WARN]", ...args, "\n") ? args : undefined,
-    m: (...args) => !DISABLE_LOGGER && console.log("[INFO]", ...args, "\n") ? args : undefined,
+    e: (...args) => {
+        if (DISABLE_LOGGER) return;
+        console.error("[ERROR]", ...args, "\n");
+        return args.join(" ");
+    },
+    w: (...args) =>
+    {
+        if (DISABLE_LOGGER) return;
+        console.warn("[WARN]", ...args, "\n");
+        return args.join(" ");
+    },
+    m: (...args) =>
+    {
+        if (DISABLE_LOGGER) return;
+        console.log("[INFO]", ...args, "\n")
+        return args.join(" ");
+    },
 };
 
 function generateSixDigitNumber() {
